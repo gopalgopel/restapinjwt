@@ -58,7 +58,7 @@ var corsOptions = {
 // configure app to use multer for Mobile NDIG-APP
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'public/file')
+      cb(null, './public/file')
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + '-' + file.originalname)
@@ -80,19 +80,6 @@ var START, END;
 var encryptpass = 'NDIG-DIAS'; // key untuk encrypt data
 var MODE_DEVELOP = true; // mode untuk on=false/off=true encrypt data dan decrypt url
 var MODE_AUTH = false; // mode untuk on/off autentikasi dengan njwt, true jika ada autentikasi
-
-
-
-
-// UPLOAD FILE HAHAHA
-// app.use(fileUpload());
-
-// app.post('/upload', function(req, res) {
-//   console.log(req.files.foo); // the uploaded file object
-// });
-// UPLOAD FILE HAHAHA
-
-
 
 
 
@@ -374,6 +361,7 @@ router.route('/beritamobile')
                 if(err) {
                     res.status(404).send(err);
                 } else {
+                    console.log ("HAHAHAHAHAHAHA");
                     var berita = new Berita();      // create a new instance of the Pesan model
                     berita.judul = req.body.judul;
                     berita.isi = req.body.isi;
@@ -398,16 +386,11 @@ router.route('/beritamobile')
                     berita.save(function(err, berita) {
                         if(err) {
                             res.send(err);
-                        }
-                        else {
+                        } else {
                             if (req.files)
                                 console.log('file successfully saved to server');
                             res.json({ message: 'berita '+berita+' dari NDIG-App berhasil digenerate!' });
                         }
-
-                        // if (err)
-                            // res.send(err);
-                        // res.json({ message: 'berita '+berita+' berhasil digenerate!' });
                     });
 
 
